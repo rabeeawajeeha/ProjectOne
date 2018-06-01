@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>ShopSmart</title>
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/normalize.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- Skeleton CDN
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" rel="stylesheet" type="text/css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <link rel="stylesheet" href="assets/css/skeleton.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  	<!-- Bootstrap css -->
+
+	<!-- Style css -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Favicon–––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+<!--JQUERY-->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- logo -->
+    <div class="container"> 
+    <div class="section hero">
+        <div class="container">
+          <div class="row">
+              <img class="sslogo" src="assets/images/SSlogo.png">
+            </div>
+          </div>
+        </div>
+        <!-- search bar  -->
+<div class="container"> 
+<form>
+    <div class="search-box">
+        <div class="eight columns">
+      <input class="u-full-width" type="search" placeholder="Search hottest products here" id="searchInput">
+    </div>
+    <input class="button-primary" type="submit" value="Submit">
+  </form>
+</div>
+
+<!-- Search Bar -->
+<div class="col-lg-12"></div>
+            <form role="form">
+              <div class="form-group row">
+                <label for="name-input">Search</label>
+                <input class="form-control" id="name-input" type="text">
+              </div>
+  
+              <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- Favourite items -->
+      <div class="col-lg-12">
+          <div class="card">
+            <div class="card-heading">
+              <h3 class="card-title">List of Items</h3>
+            </div>
+            <div class="card-body">
+              <div id="full-member-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Hottest Products -->
+  <div class="container">
+      <h1 class="text-left">Hottest Products</h1>
+      <hr>
+  
+      <div class="row">
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/apple-watch.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Apple Watch Series 3 Aluminium</h5>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $550.00</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/beat.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Beats Solo 3 Wireless</h5>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $159.00</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/imac.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Apple iMac</h5>
+          <span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star checked"></span>
+<span class="fa fa-star"></span>
+<span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $1,699.00</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/ipad.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Apple iPad</h5>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $415.99</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/iphone.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Apple iPhone X</h5>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $1,342.00</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+        <!-- Product  -->
+        <div class="col-md-4 product-grid">
+          <div class="image">
+            <a href="#">
+              <img src="assets/images/macbook.jpg" class="w-100">
+              <div class="overlay">
+                <div class="detail">View Details</div>
+              </div>
+            </a>
+          </div>
+          <h5 class="text-center">Apple MacBook</h5>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <h5 class="text-center">Price: $2,699.00</h5>
+          <a href="#" class="btn buy">BUY</a>
+        </div>
+        <!-- ./Product -->
+  
+      </div>
+  
+    </div>
+
+
+    <!-- Card deck -->
+    <div class=container>
+<div class="card-deck">
+
+  <!-- Card -->
+  <div class="card mb-4">
+
+    <!--Card image-->
+    <div class="view overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!--Card content-->
+    <div class="card-body">
+
+      <!--Title-->
+      <img class="card-img-top" src="assets/images/iphonex.png" alt="iphonex">
+      <h4 class="card-title">iPhone X</h4>
+
+          <!--Star Rating-->
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+      <!--Text-->
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+    </div>
+
+  </div>
+  <!-- Card -->
+
+  <!-- Card -->
+  <div class="card mb-4">
+
+    <!--Card image-->
+    <div class="view overlay">
+      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/14.jpg" alt="Card image cap">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!--Card content-->
+    <div class="card-body">
+
+      Title
+      <img class="card-img-top" src="assets/images/iphonex.png" alt="iphonex">
+      <h4 class="card-title">iPhoneX</h4>
+
+          <!--Star Rating-->
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+      <!--Text-->
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+    </div>
+
+  </div>
+  <!-- Card -->
+
+  <!-- Card -->
+  <div class="card mb-4">
+
+    <!--Card image-->
+    <div class="view overlay">
+      <img class="card-img-top" src="assets/images/iphonex.png" alt="iphonex">
+      <a href="#!">
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+
+    <!--Card content-->
+    <div class="card-body">
+
+      <!--Title-->
+   
+      <img class="card-img-top" src="assets/images/iphonex.png" alt="iphonex">
+      <div class="card-body">
+
+          <!--Star Rating-->
+          <h4 class="card-title">iPhone X</h4>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+      <!--Text-->
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+
+    </div>
+
+  </div>
+  <!-- Card -->
+
+</div>
+<!-- Card deck -->
+
+
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="assets/images/iphonex.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">iPhone X</h5>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+    <span class="fa fa-star"></span>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+</div>
+
+<script src="assets/javascript/app.js"></script>
+</body>
+
+
+
+</html>
