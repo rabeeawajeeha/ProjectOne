@@ -1,9 +1,10 @@
 var config = {
+  // Initialize Firebase
     apiKey: "AIzaSyDb7poLCVH9HCHKCYwQIiGz-lCwda5rn8s",
     authDomain: "shopsmartfinal.firebaseapp.com",
     databaseURL: "https://shopsmartfinal.firebaseio.com",
     projectId: "shopsmartfinal",
-    storageBucket: "",
+    storageBucket: "shopsmartfinal.appspot.com",
     messagingSenderId: "673627430003"
 };
 firebase.initializeApp(config);
