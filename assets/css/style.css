@@ -19,6 +19,7 @@ hr{
 }
 .image{
 	position: relative;
+	margin-bottom: 3vh;
 }
 .overlay{
 	position: absolute;

@@ -1,5 +1,5 @@
 var config = {
-  // Initialize Firebase
+    // Initialize Firebase
     apiKey: "AIzaSyDb7poLCVH9HCHKCYwQIiGz-lCwda5rn8s",
     authDomain: "shopsmartfinal.firebaseapp.com",
     databaseURL: "https://shopsmartfinal.firebaseio.com",
@@ -91,10 +91,10 @@ var SendWalmartParams = function (searchTerm, numItems, categoryId)
         var Category = {
             'categoryId': categoryId
         }
-       Object.assign(base, Category)
-       console.log("CATEGORY")
+        Object.assign(base, Category)
+        console.log("CATEGORY")
     }
-    
+
     console.log("PARAMSEND" + JSON.stringify(base))
     GetWalmartProduct(base)
 }
@@ -112,7 +112,19 @@ var GetWalmartProduct = function (queryParams)
         dataType: 'jsonp'
     }).done(function (result)
     {
-        console.log(result);
+        var Item = result.items
+        for (var i = 0; i < Item.length; i++)
+        {
+            console.log(result);
+            console.log(Item[i].name);
+            console.log(Item[i].salePrice);
+            console.log(Item[i].upc);
+            console.log(Item[i].largeImage);
+            console.log(Item[i].productUrl);
+
+            DrawProductCard(Item[i].name, Item[i].salePrice, Item[i].upc, Item[i].largeImage, Item[i].productUrl)
+        }
+
 
     }).fail(function (err)
     {
@@ -151,6 +163,59 @@ upc
 categoryNode
 categoryPath
 */
+
+
+var DrawProductCard = function (name, price, upc, imageSrc, siteLink)
+{
+    var divCol = $("<div class='col-md-3 product-grid'>");
+    var divImage = $("<div class='image'>");
+
+    var alink = $("<a>");
+    alink.attr("href", "#");
+
+    var img = $("<img class='w-100 cardimage'>");
+    img.attr("src", imageSrc);
+
+    var divOverlay = $("<div class='overlay'>");
+
+    var divDetails = $("<div class='detail'>");
+    divDetails.text("View Details")
+
+    divOverlay.append(divDetails);
+    alink.append(img);
+    alink.append(divOverlay);
+    divImage.append(alink);
+    divCol.append(divImage);
+
+    var h5Title = $("<h5 class='text-center'>")
+    h5Title.text(name);
+    divCol.append(h5Title);
+
+    var star1 = $("<span class='fa fa-star'>");
+    divCol.append(star1);
+    var star2 = $("<span class='fa fa-star'>");
+    divCol.append(star2);
+    var star3 = $("<span class='fa fa-star'>");
+    divCol.append(star3);
+    var star4 = $("<span class='fa fa-star'>");
+    divCol.append(star4);
+    var star5 = $("<span class='fa fa-star'>");
+    divCol.append(star5);
+
+    var h5Price = $("<h5 class='text-center'>");
+    h5Price.text("Price: $" + price);
+    divCol.append(h5Price);
+
+    var aSiteLink = $("<a class='btn buy'>");
+    aSiteLink.attr("href", siteLink);
+    aSiteLink.text("BUY");
+    divCol.append(aSiteLink);
+
+    $(".hot").append(divCol);
+
+
+
+}
 
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
