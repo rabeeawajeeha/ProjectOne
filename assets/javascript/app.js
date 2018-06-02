@@ -131,7 +131,7 @@ var GetWalmartProduct = function (queryParams)
         throw err;
     });
 }
-SendWalmartParams("Ipod", 2);
+SendWalmartParams("Ipod", 3);
 
 //If we want to do category search we need to defione the categories
 //And then I can use the API to designate category id with in 
