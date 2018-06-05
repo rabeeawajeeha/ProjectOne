@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="assets/css/reset.css">
 <link rel="stylesheet" href="assets/css/normalize.css">
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900|Rubik:300,400,500,700,900" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" rel="stylesheet" type="text/css"> -->
   <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
   <link rel="stylesheet" href="assets/css/skeleton.css">
@@ -19,28 +20,29 @@
 <body>
   <main id="page-content" class="wrap container">
     <div class="container-fluid"> 
-      
+           
   <!-- logo -->
   <div class="container">
         <div class="row">
-            <div class="col-xs-3">
             <div class="sslogo">
                 <img class="sslogo" src="assets/images/SSlogo.png">
             </div>
         </div>
         </div>  
       </div>
-  
-              <div class="col-lg-9">
-          <form>
-              <div class="search-box">
-                  <div class="eight columns">
-                <input class="u-full-width" type="search" placeholder="Search hottest products here" id="searchInput">
-              </div>
-              <input class="button" type="submit" value="Submit"><button id="button">Fovourite</button>
-            </form>
-        </div>
-      
+
+      <!-- Search -->
+      <div class="container-fluid"> 
+        <form>
+            <div class="search-box">
+                <div class="eight columns">
+              <input class="u-full-width" type="search" placeholder="Search hottest products here" id="searchInput">
+            </div>
+            <input class="button" type="submit" value="Submit">
+           <button type="button" id="favourite-button" class="button"> FAVOURITE </button>
+
+          </form>
+      </div>
 
         <!-- Shop -->
 
@@ -95,7 +97,7 @@
 <!-- Hottest Products -->
 <div class="container">
 <div class="row">
-<h1 class="col-sm-3 text-center">Hottest Products</h1>
+<h1 class="col-lg-3 text-center">Hottest Products</h1>
 </div>
 </div>
 
@@ -295,7 +297,7 @@
               </div>
               <!-- ./Product -->
         </div>
-      </div>
+      
 
 
 </main>

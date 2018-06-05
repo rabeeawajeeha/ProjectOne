@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900|Rubik:300,400,500,700,900');
+@import url("https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet");
 
 body{
+	font-family: 'Raleway', sans-serif;
+	font-size: 16 px;
 	padding: 50 px;
 	margin:50 px;
 	color: #434444;
@@ -9,8 +11,13 @@ body{
 	padding-top: 50px;
 }
 
+.product_text{
+	font-family: 'Raleway', sans-serif;
+	font-size: 16 px;
+}
+
 /*********************************
-5. Single Product
+Single Product
 *********************************/
 
 .single_product
@@ -90,7 +97,7 @@ body{
 }
 .product_category
 {
-	font-size: 12px;
+	font-size: 16px;
 	color: rgba(0,0,0,0.5);
 }
 .product_name
@@ -184,7 +191,7 @@ body{
 }
 .quantity_control i
 {
-	font-size: 11px;
+	font-size: 16px;
 	color: rgba(0,0,0,0.3);
 	pointer-events: none;
 }
@@ -241,7 +248,7 @@ body{
 }
 .color_dropdown_button i
 {
-	font-size: 11px;
+	font-size: 16px;
 	color: rgba(0,0,0,0.3);
 	pointer-events: none;
 }
