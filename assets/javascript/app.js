@@ -15,8 +15,7 @@ var dataRef = firebase.database();
 var name = "";
 
 // Capture Button Click
-$("#add-user").on("click", function (event)
-{
+$("#add-user").on("click", function (event) {
     event.preventDefault();
 
     name = $("#name-input").val().trim();
@@ -38,13 +37,11 @@ dataRef.ref().on("child_added", function (childSnapshot)
     $("#full-member-list").append("<div class='well'><span class='member-name'> " + childSnapshot.val().name);
 
     // Handle the errors
-}, function (errorObject)
-    {
-        console.log("Errors handled: " + errorObject.code);
-    });
+}, function (errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+});
 
-dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot)
-{
+dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
     // Change the HTML to reflect
     $("#name-display").text(snapshot.val().name);
 
@@ -53,7 +50,11 @@ dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functio
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 
+=======
+//InitializePage();
+>>>>>>> 597b3c3a6b53cffc79bc7d80c5ce5f707366b6c0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -68,12 +69,9 @@ var SendWalmartParams = function (searchTerm, numItems, categoryId,jqueryRef)
     console.log(searchTerm);
     console.log(numItems);
     console.log(categoryId);
-    if (searchTerm === undefined)
-    {
+    if (searchTerm === undefined) {
         console.log("Error, No Search Term Used")
-    }
-    else
-    {
+    } else {
         var base = {
             'apiKey': 'c6esnayv43u5sguw64sac6cz',
             'format': 'json',
@@ -82,19 +80,16 @@ var SendWalmartParams = function (searchTerm, numItems, categoryId,jqueryRef)
         }
     }
 
-    if (numItems)
-    {
+    if (numItems) {
         console.log("ITEM LIMIT")
-        var ItemLimit =
-            {
-                'numItems': numItems
-            }
+        var ItemLimit = {
+            'numItems': numItems
+        }
         Object.assign(base, ItemLimit)
         console.log("Add ItemLimit" + base);
     }
 
-    if (categoryId)
-    {
+    if (categoryId) {
         var Category = {
             'categoryId': categoryId
         }
@@ -106,24 +101,16 @@ var SendWalmartParams = function (searchTerm, numItems, categoryId,jqueryRef)
     GetWalmartProduct(base,jqueryRef)
 }
 
-/*
-Description: This function contains an ajax call to the walmart api to retrive specific information of a product and calls the
-            DrawProductCard function to display the information
-Parameters: queryParams - Object of query parameter for the ajax call basic parameter are found in the SendWalmartParams function
-Created By: Aaron Colbert
-Created: 05/26/2018
 LastModified: 06/02/2018
- */
+
 var GetWalmartProduct = function (queryParams,jqueryRef)
 {
     console.log("GETWLAMARTPROD" + JSON.stringify(queryParams))
     var url = "http://api.walmartlabs.com/v1/search";
     url += '?' + $.param(queryParams);
-
     console.log(url)
     $.ajax({
         url: url,
-        method: 'GET',
         dataType: 'jsonp'
     }).done(function (result)
     {
@@ -241,7 +228,7 @@ var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
     divCol.append(aSiteLink);
 
     //Category class or ID needed to determine where to put Product card
-    jqueryRef.append(divCol);
+    // jqueryRef.append(divCol);
 
 }
 
@@ -304,157 +291,304 @@ InitializePage();
 
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
 
+function ebayInfoKeyword(keyword,limit) {
 
+var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
+queryUrl += "?OPERATION-NAME=findItemsByKeywords";
+queryUrl += "&SERVICE-VERSION=1.0.0";
+queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+queryUrl += "&GLOBAL-ID=EBAY-ENCA";
+queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
+//url += "&callback=_cb_findItemsByKeywords";
+queryUrl += "&REST-PAYLOAD";
+queryUrl += "&keywords=" + keyword;
+queryUrl += "&paginationInput.entriesPerPage=" + limit;
 
-$(document).ready(function() {
+    //ajax call method 
+    $.ajax({
+        url: queryUrl,
+        method: "GET",
+       dataType: "jsonp"
+    }).done(function (response) {
 
-    // //Creating a function for the URL api key
-    // function displayInfo()  {
+            var results = response.findItemsByKeywordsResponse[0].searchResult[0].item
     
-    //     var keyword = $(this).attr("keyword");
-    //     var queryURL = "https://api.ebay.com/buy/browse/v1/item_summary/search?q= + keywords + &limit=3";
-    
-    // //ajax call method 
-    //     $.ajax({
-    //         url: queryURL,
-    //         method: "GET",
-    
-    
-    
-    //     }).done(function(response){
-    
-    //         var results = response.data;
-    
-    
-    //     }
-    // });
-    
-    // Parse the response and build an HTML table to display search results
-    function _cb_findItemsByKeywords(root) {
-        var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
-        var html = [];
-        html.push('<table width="100%" border="0" cellspacing="0" cellpadding="3"><tbody>');
-        for (var i = 0; i < items.length; ++i) {
-          var item     = items[i];
-          var title    = item.title;
-          var pic      = item.galleryURL;
-          var viewitem = item.viewItemURL;
-          if (null != title && null != viewitem) {
-            html.push('<tr><td>' + '<img src="' + pic + '" border="0">' + '</td>' + 
-            '<td><a href="' + viewitem + '" target="_blank">' + title + '</a></td></tr>');
-          }
-        }
-        html.push('</tbody></table>');
-        document.getElementById("results").innerHTML = html.join("");
-      }  // End _cb_findItemsByKeywords() function
-      
-      // Create a JavaScript array of the item filters you want to use in your request
-      
-      var filterarray = [
-        {"name":"MaxPrice", 
-         "value":"25", 
-         "paramName":"Currency", 
-         "paramValue":"USD"},
-        {"name":"FreeShippingOnly", 
-         "value":"true", 
-         "paramName":"", 
-         "paramValue":""},
-        {"name":"ListingType", 
-         "value":["AuctionWithBIN", "FixedPrice", "StoreInventory"], 
-         "paramName":"", 
-         "paramValue":""},
-        ];
-      
-      console.log()
-      
-      // Define global variable for the URL filter
-      var urlfilter = "";
-      
-      // Generates an indexed URL snippet from the array of item filters
-      function  buildURLArray() {
-        // Iterate through each filter in the array
-        for(var i=0,l=filterarray.length; i<l; i++) {
-          //Index each item filter in filterarray
-          var itemfilter = filterarray[i];
-          // Iterate through each parameter in each item filter
-          for(var index in itemfilter) {
-            // Check to see if the paramter has a value (some don't)
-            if (itemfilter[index] !== "") {
-              if (itemfilter[index] instanceof Array) {
-                for(var r=0; r<itemfilter[index].length; r++) {
-                var value = itemfilter[index][r];
-                urlfilter += "&itemFilter\(" + i + "\)." + index + "\(" + r + "\)=" + value ;
-                }
-              } 
-              else {
-                urlfilter += "&itemFilter\(" + i + "\)." + index + "=" + itemfilter[index];
-              }
+            console.log(results);            
+
+            if (results.length == 0)
+            {
+                //Display a No Results Message
             }
-          }
-        }
-      }  // End buildURLArray() function
-      
-      // Execute the function to build the URL filter
-      buildURLArray(filterarray);
-      
-      // Construct the request
-    
-    
-      var url = "http://svcs.ebay.com/services/search/FindingService/v1";
-          url += "?OPERATION-NAME=findItemsByKeywords";
-          url += "&SERVICE-VERSION=1.0.0";
-          url += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525" ;
-          url += "&GLOBAL-ID=EBAY-ENCA";
-          url += "&RESPONSE-DATA-FORMAT=JSON";
-          url += "&callback=_cb_findItemsByKeywords";
-          url += "&REST-PAYLOAD";
-          url += "&keywords=sony";
-          url += "&paginationInput.entriesPerPage=2";
-          url += urlfilter;
-      
-         var product= "http://svcs.ebay.com/services/search/FindingService/v1?";
-          product += "OPERATION-NAME=findItemsByProduct&";
-          product += "SERVICE-VERSION=1.0.0&";
-          product += "SECURITY-APPNAME=YourAppID&";
-          product += "RESPONSE-DATA-FORMAT=JSON&"
-          product +=  "REST-PAYLOAD&";
-          product +=  "paginationInput.entriesPerPage=2&"
-          product +=  "productId.@type=ReferenceID&"
-          product +=  "productId=53039031"
-    
-        //   var productRequest =
-    
-        //   {
-        //     "findItemsByProductRequest": {
-        //     "xmlns": "http://www.ebay.com/marketplace/search/v1/services",
-        //     "productId": {
-        //     "type": "ReferenceID",
-        //     "#text": "53039031"
-        //     },
-        //     "paginationInput": {
-        //     "entriesPerPage": "2"
-        //     }
-        //     }
-        //     }
-    
-      
-      
-      // Submit the request 
-      s=document.createElement('script'); // create script element
-      s.src= url;
-      s.src= product;
-      document.body.appendChild(s);
-      
-      // Display the request as a clickable link for testing
-      document.write("<a href=\"" + url + "\">" + url + "</a>");
-      document.write("<a href=\"" + product + "\">" + product +"<a>");
-    
-    });
-    
-    //name 
-    //description
-    //current price
-    //UPC 
-    //Image Source 
-    //site link
+            else
+            {
+                for (var i = 0, l=results.length; i < l; i++)
+                {
+                    var title = results[i].title[0];
+                    var price = results[i].sellingStatus[0].currentPrice[0].__value__;
+                    var picture = results[i].galleryURL[0];
+                    var itemUrl = results[i].viewItemURL[0];
+                    var itemId = results[i].itemId[0];
 
+                    console.log(results);
+                    console.log(results[i].title[0]);
+                    console.log(results[i].sellingStatus[0].currentPrice[0].__value__);
+                    console.log(results[i].galleryURL[0]);
+                    console.log(results[i].viewItemURL[0]);
+                    console.log(results[i].itemId[0])
+                    DrawProductCard(title, price, picture, itemUrl, itemId);
+                }
+            }
+        }).fail(function (err)
+        {
+            throw err;
+        });
+    }       
+    ebayInfoKeyword("sony", 3 );
+
+
+// category api call
+//     function ebayInfoCategory(categoryName, limit){
+
+//    var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1?"
+//    queryUrl += "&OPERATION-NAME=findItemsByCategory";
+//    queryUrl += "&SERVICE-VERSION=1.0.0";
+//    queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+//    queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
+//    queryUrl += "&REST-PAYLOAD";
+//    queryUrl += "&categoryName= " + categoryName;
+//    queryUrl += "paginationInput.entriesPerPage=" + limit;
+   
+//    $.ajax({
+//     url: queryUrl,
+//     method: "GET",
+//    dataType: "jsonp"
+// }).done(function (response) {
+
+//         console.log(response);  
+
+//         var results = response.findItemsByCategoryResponse[0].searchResult[0].item
+        
+            
+//         console.log(results);
+                  
+
+//         if (results.length == 0)
+//         {
+//             //Display a No Results Message
+//         }
+//         else
+//         {
+//             for (var i = 0, l=results.length; i < l; i++)
+//             {
+//                 var title = results[i].title[0];
+//                 var price = results[i].sellingStatus[0].currentPrice[0].__value__;
+//                 var picture = results[i].galleryURL[0];
+//                 var itemUrl = results[i].viewItemURL[0];
+//                 var itemId = results[i].itemId[0];
+
+//                 console.log(results);
+//                 console.log(results[i].title[0]);
+//                 console.log(results[i].sellingStatus[0].currentPrice[0].__value__);
+//                 console.log(results[i].galleryURL[0]);
+//                 console.log(results[i].viewItemURL[0]);
+//                 console.log(results[i].itemId[0])
+//                 DrawProductCard(title, price, picture, itemUrl, itemId);
+//             }
+//         }
+//     }).fail(function (err)
+//     {
+//         throw err;
+//     });
+// }
+//      ebayInfoCategory("20914", 3);  
+
+
+// //single api call
+//     function ebayInfoSingle(ItemId){
+
+//    var queryUrl = "http://open.api.ebay.com/shopping?"
+//    queryUrl += "callname=GetSingleItem";
+//    queryUrl += "&responseencoding=JSON";
+//    queryUrl += "&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+//    queryUrl += "&siteid=0";
+//    queryUrl += "&version=967";
+//    queryUrl += "&ItemID=" + ItemId;
+//    queryUrl += "&IncludeSelector=Description,ItemSpecifics";
+//    queryUrl += "&callbackname = ebayInfoSingle"
+   
+//    //var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=332669346050&IncludeSelector=Description,ItemSpecifics"
+
+
+//    $.ajax({
+//     url: queryUrl,
+//     method: "GET",
+//     dataType: "jsonp",
+//     callback: "parseResponse"
+// }).done(function (response) {
+
+//         console.log(JSON.parse(response));  
+
+//         var results = response.Item
+         
+//         console.log(results);
+                  
+
+//         if (results.length == 0)
+//         {
+//             //Display a No Results Message
+//         }
+//         else
+//         {
+//             for (var i = 0, l=results.length; i < l; i++)
+//             {
+//                 var title = results[i].Title;
+//                 var description = results[i].Item.Description;
+//                 var price = results[i].ConvertedCurretPrice.Value;
+//                 var picture = results[i].GalleryURL;
+//                 var itemUrl = results[i].viewItemURLForNaturalSearch;
+//                 var itemId = results[i].itemID;
+//                 var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
+
+//                 console.log(results);
+//                 console.log(results[i].Title);
+//                 console.log(results[i].Item.Description);
+//                 console.log(results[i].ConvertedCurretPrice.Value);
+//                 console.log(results[i].GalleryURL)
+//                 console.log(results[i].viewItemURLForNaturalSearch);
+//                 console.log(results[i].itemID)
+//                 DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
+//             }
+//         }
+//     }).fail(function (err)
+//     {
+//         throw err;
+//     });
+// }
+//     ebayInfoSingle("332669346050");
+    
+
+
+
+
+    // Parse the response and build an HTML table to display search results
+    // function _cb_findItemsByKeywords(root) {
+    //     var items = root.findItemsByKeywordsResponse[0].searchResult[1].item || [];
+    //     var html = [];
+    //     html.push('<table width="100%" border="0" cellspacing="0" cellpadding="3"><tbody>');
+    //     for (var i = 0; i < items.length; ++i) {
+    //         var item = items[i];
+    //         var title = item.title;
+    //         var pic = item.galleryURL;
+    //         var viewitem = item.viewItemURL;
+    //         if (null != title && null != viewitem) {
+    //             html.push('<tr><td>' + '<img src="' + pic + '" border="0">' + '</td>' +
+    //                 '<td><a href="' + viewitem + '" target="_blank">' + title + '</a></td></tr>');
+    //         }
+    //     }
+    //     html.push('</tbody></table>');
+    //     document.getElementById("results").innerHTML = html.join("");
+    // } // End _cb_findItemsByKeywords() function
+
+    // Create a JavaScript array of the item filters you want to use in your request
+
+    // var filterarray = [{
+    //         "name": "MaxPrice",
+    //         "value": "25",
+    //         "paramName": "Currency",
+    //         "paramValue": "USD"
+    //     },
+    //     {
+    //         "name": "FreeShippingOnly",
+    //         "value": "true",
+    //         "paramName": "",
+    //         "paramValue": ""
+    //     },
+    //     {
+    //         "name": "ListingType",
+    //         "value": ["AuctionWithBIN", "FixedPrice", "StoreInventory"],
+    //         "paramName": "",
+    //         "paramValue": ""
+    //     },
+    // ];
+
+    // console.log()
+
+    // // Define global variable for the URL filter
+    // var urlfilter = "";
+
+    // // Generates an indexed URL snippet from the array of item filters
+    // function buildURLArray() {
+    //     // Iterate through each filter in the array
+    //     for (var i = 0, l = filterarray.length; i < l; i++) {
+    //         //Index each item filter in filterarray
+    //         var itemfilter = filterarray[i];
+    //         // Iterate through each parameter in each item filter
+    //         for (var index in itemfilter) {
+    //             // Check to see if the paramter has a value (some don't)
+    //             if (itemfilter[index] !== "") {
+    //                 if (itemfilter[index] instanceof Array) {
+    //                     for (var r = 0; r < itemfilter[index].length; r++) {
+    //                         var value = itemfilter[index][r];
+    //                         urlfilter += "&itemFilter\(" + i + "\)." + index + "\(" + r + "\)=" + value;
+    //                     }
+    //                 } else {
+    //                     urlfilter += "&itemFilter\(" + i + "\)." + index + "=" + itemfilter[index];
+    //                 }
+    //             }
+    //         }
+    //     }
+    // } // End buildURLArray() function
+
+    // // Execute the function to build the URL filter
+    // buildURLArray(filterarray);
+
+    // // Construct the request
+
+
+
+
+    // var product = "http://svcs.ebay.com/services/search/FindingService/v1?";
+    // product += "OPERATION-NAME=findItemsByProduct&";
+    // product += "SERVICE-VERSION=1.0.0&";
+    // product += "SECURITY-APPNAME=YourAppID&";
+    // product += "RESPONSE-DATA-FORMAT=JSON&"
+    // product += "REST-PAYLOAD&";
+    // product += "paginationInput.entriesPerPage=2&"
+    // product += "productId.@type=ReferenceID&"
+    // product += "productId=53039031"
+
+    // var productRequest =
+
+    // {
+    // "findItemsByProductRequest": {
+    // "xmlns": "http://www.ebay.com/marketplace/search/v1/services",
+    // "productId": {
+    // "type": "ReferenceID",
+    // "#text": "53039031"
+    //  },
+    // "paginationInput": {
+    // "entriesPerPage": "2"
+    // }
+    // }
+    // }
+
+
+
+    // // Submit the request 
+    // s = document.createElement('script'); // create script element
+    // s.src = url;
+    // s.src = product;
+    // document.body.appendChild(s);
+
+    // // Display the request as a clickable link for testing
+    // document.write("<a href=\"" + url + "\">" + url + "</a>");
+    // document.write("<a href=\"" + product + "\">" + product + "<a>");
+
+
+
+// //name 
+// //description
+// //current price
+// //UPC 
+// //Image Source 
+// //site link
