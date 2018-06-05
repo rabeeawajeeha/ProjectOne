@@ -146,23 +146,6 @@ salePrice
 shortDescription
 customerRating
 
-
-brandName
-name
-color
-customerRating
-customerRatingImage
-itemId
-modelNumber
-largeImage - mediumImage - thumbnailImage
-longDescription - shortDescription
-productUrl
-msrp
-salePrice
-stock
-upc
-categoryNode
-categoryPath
 */
 
 /*
@@ -179,7 +162,8 @@ LastModified: 06/02/2018
 var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
 {
 
-    console.log("DRAW: " +jqueryRef)
+    console.log("DRAW: " + jqueryRef)
+    
     var divCol = $("<div class='col-md-3 product-grid'>");
     var divImage = $("<div class='image'>");
 
@@ -240,8 +224,12 @@ $("#submit").on("click", function (event)
     event.preventDefault();
 
     var searchTerm = $("#searchInput").val().trim();
+
     if (searchTerm)
     {
+        //location.href = "search.html"
+        newpage();
+        //$("#searchInput").val(searchTerm);
         ProductSearch(searchTerm);
     }
 });
@@ -257,9 +245,13 @@ var ProductSearch = function (searchTerm)
 {
     if (searchTerm)
     {
-        jqueryRef = $("");//Somewhere on the SearchResultsPage
+        console.log("Search Product")
+        jqueryRef = $(".products");//Somewhere on the SearchResultsPage
 
-        SendWalmartParams(searchTerm, jqueryRef); //Send limit if we want to limit # of search results
+        SendWalmartParams(searchTerm, 25,"", $(".products1")); 
+       
+        //Send limit if we want to limit # of search results
+        //ebayInfoKeyword(searchTerm,4, jqueryRef)
         //PAGE Navigtion to search results 
         //Call functions of ajax calls for keyword searchs
         //Pass the jquery of where to populate the products
@@ -274,21 +266,64 @@ LastModified: 06/02/2018
  */
 var InitializePage = function ()
 {
-    SendWalmartParams("Laptops", 3,3944,$(".Laptops"))//Add CategoryId 
+    SendWalmartParams("Laptops", 4,3944,$(".Laptops"))//Add CategoryId 
+  //  ebayInfoKeyword("laptops", 2, $(".Laptops"))
     //Add Ebay Initial call for Specified Category
 
-    //SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("Smartphones", 4,"",$(".smartphones"))//Add CategoryId 
+   // ebayInfoKeyword("Smartphone", 2,$(".smartphones"))
     //Add Ebay Initial call for Specified Category
 
-    //SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("cameras", 4,"",$(".cameras"))//Add CategoryId 
+    //ebayInfoKeyword("cameras", 2,$(".cameras"))
     //Add Ebay Initial call for Specified Category
 }
 InitializePage();
 
 
+var newpage = function()
+{$(".Products1").empty();
+var row1 = $("<div class='row products1'>");
+var row2 = $("<div class='row products2'>");
+var row3 = $("<div class='row products3'>");
+var row4 = $("<div class='row products4'>");
+
+  
+
+
+    $(".Products1").append(row1);
+
+    
+   
+    $(".Products1").append(row2);
+
+  
+    $(".Products1").append(row3);
+
+    $(".Products1").append(row4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
 
-function ebayInfoKeyword(keyword,limit) {
+function ebayInfoKeyword(keyword,limit, jqueryRef) {
 
 var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
 queryUrl += "?OPERATION-NAME=findItemsByKeywords";
@@ -332,7 +367,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
                     console.log(results[i].galleryURL[0]);
                     console.log(results[i].viewItemURL[0]);
                     console.log(results[i].itemId[0])
-                    DrawProductCard(title, price, picture, itemUrl, itemId);
+                    DrawProductCard(title, price, picture, itemUrl, itemId, jqueryRef);
                 }
             }
         }).fail(function (err)
@@ -340,7 +375,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
             throw err;
         });
     }       
-    ebayInfoKeyword("sony", 3 );
+   
 
 
 // category api call
