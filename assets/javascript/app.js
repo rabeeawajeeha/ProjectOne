@@ -50,7 +50,7 @@ dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functio
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
-InitializePage();
+//InitializePage();
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -224,7 +224,7 @@ var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
     divCol.append(aSiteLink);
 
     //Category class or ID needed to determine where to put Product card
-    jqueryRef.append(divCol);
+    // jqueryRef.append(divCol);
 
 }
 
@@ -287,59 +287,182 @@ var InitializePage = function ()
 
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
 
-var url = "http://svcs.ebay.com/services/search/FindingService/v1";
-url += "?OPERATION-NAME=findItemsByKeywords";
-url += "&SERVICE-VERSION=1.0.0";
-url += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
-url += "&GLOBAL-ID=EBAY-ENCA";
-url += "&RESPONSE-DATA-FORMAT=JSON";
-//url += "&callback=_cb_findItemsByKeywords";
-url += "&REST-PAYLOAD";
-url += "&keywords=sony";
-url += "&paginationInput.entriesPerPage=2";
-// url += urlfilter;
-//Creating a function for the URL api key
-//Create ajax call using findItemsAdvanced:categoryID
-
-function displayInfo(keyword,limit) {
+function ebayInfoKeyword(keyword,limit) {
 
 var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
-url += "?OPERATION-NAME=findItemsByKeywords";
-url += "&SERVICE-VERSION=1.0.0";
-url += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
-url += "&GLOBAL-ID=EBAY-ENCA";
-url += "&RESPONSE-DATA-FORMAT=JSON";
+queryUrl += "?OPERATION-NAME=findItemsByKeywords";
+queryUrl += "&SERVICE-VERSION=1.0.0";
+queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+queryUrl += "&GLOBAL-ID=EBAY-ENCA";
+queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
 //url += "&callback=_cb_findItemsByKeywords";
-url += "&REST-PAYLOAD";
-url += "&keywords="+ keyword;
-url += "&paginationInput.entriesPerPage=" + limit;
+queryUrl += "&REST-PAYLOAD";
+queryUrl += "&keywords=" + keyword;
+queryUrl += "&paginationInput.entriesPerPage=" + limit;
 
     //ajax call method 
     $.ajax({
-        url: queryURL,
+        url: queryUrl,
         method: "GET",
-       dataType: 'jsonp'
-
-    
-
+       dataType: "jsonp"
     }).done(function (response) {
 
             var results = response.findItemsByKeywordsResponse[0].searchResult[0].item
-            
-            console.log(response.findItemsByKeywordsResponse);
-            console.log(results);
-
-            //create for loop to call for lenghth of array 
-            //call draw for for loop
-
-            //console.log(response.searchResult[0].item);
-
-        })
-    }
-    displayInfo(url);
-
-
     
+            console.log(results);            
+
+            if (results.length == 0)
+            {
+                //Display a No Results Message
+            }
+            else
+            {
+                for (var i = 0, l=results.length; i < l; i++)
+                {
+                    var title = results[i].title[0];
+                    var price = results[i].sellingStatus[0].currentPrice[0].__value__;
+                    var picture = results[i].galleryURL[0];
+                    var itemUrl = results[i].viewItemURL[0];
+                    var itemId = results[i].itemId[0];
+
+                    console.log(results);
+                    console.log(results[i].title[0]);
+                    console.log(results[i].sellingStatus[0].currentPrice[0].__value__);
+                    console.log(results[i].galleryURL[0]);
+                    console.log(results[i].viewItemURL[0]);
+                    console.log(results[i].itemId[0])
+                    DrawProductCard(title, price, picture, itemUrl, itemId);
+                }
+            }
+        }).fail(function (err)
+        {
+            throw err;
+        });
+    }       
+    ebayInfoKeyword("sony", 3 );
+
+
+// category api call
+//     function ebayInfoCategory(categoryName, limit){
+
+//    var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1?"
+//    queryUrl += "&OPERATION-NAME=findItemsByCategory";
+//    queryUrl += "&SERVICE-VERSION=1.0.0";
+//    queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+//    queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
+//    queryUrl += "&REST-PAYLOAD";
+//    queryUrl += "&categoryName= " + categoryName;
+//    queryUrl += "paginationInput.entriesPerPage=" + limit;
+   
+//    $.ajax({
+//     url: queryUrl,
+//     method: "GET",
+//    dataType: "jsonp"
+// }).done(function (response) {
+
+//         console.log(response);  
+
+//         var results = response.findItemsByCategoryResponse[0].searchResult[0].item
+        
+            
+//         console.log(results);
+                  
+
+//         if (results.length == 0)
+//         {
+//             //Display a No Results Message
+//         }
+//         else
+//         {
+//             for (var i = 0, l=results.length; i < l; i++)
+//             {
+//                 var title = results[i].title[0];
+//                 var price = results[i].sellingStatus[0].currentPrice[0].__value__;
+//                 var picture = results[i].galleryURL[0];
+//                 var itemUrl = results[i].viewItemURL[0];
+//                 var itemId = results[i].itemId[0];
+
+//                 console.log(results);
+//                 console.log(results[i].title[0]);
+//                 console.log(results[i].sellingStatus[0].currentPrice[0].__value__);
+//                 console.log(results[i].galleryURL[0]);
+//                 console.log(results[i].viewItemURL[0]);
+//                 console.log(results[i].itemId[0])
+//                 DrawProductCard(title, price, picture, itemUrl, itemId);
+//             }
+//         }
+//     }).fail(function (err)
+//     {
+//         throw err;
+//     });
+// }
+//      ebayInfoCategory("20914", 3);  
+
+
+// //single api call
+//     function ebayInfoSingle(ItemId){
+
+//    var queryUrl = "http://open.api.ebay.com/shopping?"
+//    queryUrl += "callname=GetSingleItem";
+//    queryUrl += "&responseencoding=JSON";
+//    queryUrl += "&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+//    queryUrl += "&siteid=0";
+//    queryUrl += "&version=967";
+//    queryUrl += "&ItemID=" + ItemId;
+//    queryUrl += "&IncludeSelector=Description,ItemSpecifics";
+//    queryUrl += "&callbackname = ebayInfoSingle"
+   
+//    //var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=332669346050&IncludeSelector=Description,ItemSpecifics"
+
+
+//    $.ajax({
+//     url: queryUrl,
+//     method: "GET",
+//     dataType: "jsonp",
+//     callback: "parseResponse"
+// }).done(function (response) {
+
+//         console.log(JSON.parse(response));  
+
+//         var results = response.Item
+         
+//         console.log(results);
+                  
+
+//         if (results.length == 0)
+//         {
+//             //Display a No Results Message
+//         }
+//         else
+//         {
+//             for (var i = 0, l=results.length; i < l; i++)
+//             {
+//                 var title = results[i].Title;
+//                 var description = results[i].Item.Description;
+//                 var price = results[i].ConvertedCurretPrice.Value;
+//                 var picture = results[i].GalleryURL;
+//                 var itemUrl = results[i].viewItemURLForNaturalSearch;
+//                 var itemId = results[i].itemID;
+//                 var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
+
+//                 console.log(results);
+//                 console.log(results[i].Title);
+//                 console.log(results[i].Item.Description);
+//                 console.log(results[i].ConvertedCurretPrice.Value);
+//                 console.log(results[i].GalleryURL)
+//                 console.log(results[i].viewItemURLForNaturalSearch);
+//                 console.log(results[i].itemID)
+//                 DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
+//             }
+//         }
+//     }).fail(function (err)
+//     {
+//         throw err;
+//     });
+// }
+//     ebayInfoSingle("332669346050");
+    
+
 
 
 
