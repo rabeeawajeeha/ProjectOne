@@ -50,11 +50,6 @@ dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functio
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-
-=======
-//InitializePage();
->>>>>>> 597b3c3a6b53cffc79bc7d80c5ce5f707366b6c0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -183,6 +178,8 @@ LastModified: 06/02/2018
  */
 var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
 {
+
+    console.log("DRAW: " +jqueryRef)
     var divCol = $("<div class='col-md-3 product-grid'>");
     var divImage = $("<div class='image'>");
 
@@ -228,7 +225,7 @@ var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
     divCol.append(aSiteLink);
 
     //Category class or ID needed to determine where to put Product card
-    // jqueryRef.append(divCol);
+    jqueryRef.append(divCol);
 
 }
 
@@ -277,13 +274,13 @@ LastModified: 06/02/2018
  */
 var InitializePage = function ()
 {
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("Laptops", 3,3944,$(".Laptops"))//Add CategoryId 
     //Add Ebay Initial call for Specified Category
 
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    //SendWalmartParams("", 3,"",$(""))//Add CategoryId 
     //Add Ebay Initial call for Specified Category
 
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    //SendWalmartParams("", 3,"",$(""))//Add CategoryId 
     //Add Ebay Initial call for Specified Category
 }
 InitializePage();
