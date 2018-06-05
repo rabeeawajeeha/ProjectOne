@@ -48,7 +48,12 @@ var config = {
         dataRef.ref(item).remove()
         $(this).parent().remove();
     })
-
+    $(document).on("click", ".well", function(){
+        var item = $(this).children("span").text().trim();
+        newpage();
+        
+        ProductSearch(item);
+    })
     
 
 
