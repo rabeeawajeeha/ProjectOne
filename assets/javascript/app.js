@@ -1,51 +1,55 @@
+// Initialize Firebase
 var config = {
-    // Initialize Firebase
     apiKey: "AIzaSyDb7poLCVH9HCHKCYwQIiGz-lCwda5rn8s",
     authDomain: "shopsmartfinal.firebaseapp.com",
     databaseURL: "https://shopsmartfinal.firebaseio.com",
     projectId: "shopsmartfinal",
     storageBucket: "shopsmartfinal.appspot.com",
     messagingSenderId: "673627430003"
-};
-firebase.initializeApp(config);
-
-var dataRef = firebase.database();
-
-// Initial Values
-var name = "";
-
-// Capture Button Click
-$("#add-user").on("click", function (event) {
-    event.preventDefault();
-
-    name = $("#name-input").val().trim();
-
-    // Code for the push
-    dataRef.ref().push({
-        name: name,
+  };
+  firebase.initializeApp(config);
+    
+    var dataRef = firebase.database();
+    
+    // Initial Values
+    var item = "";
+    
+    // Capture Button Click
+    $("#favourite-button").on("click", function(event) {
+      event.preventDefault();
+      
+      item = $("#searchInput").val().trim();
+ 
+      console.log(item)
+      // Code for the push
+      dataRef.ref().push({
+        item: item,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
+      });
     });
-});
+    
+    // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+    dataRef.ref().on("child_added", function(childSnapshot) {
+      
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().item);
+  
+      
+      // full list of items to the well
+      $(".card-body").append("<div class='well' data-key='"+childSnapshot.key+"'><span> " + childSnapshot.val().item +"</span><button class='btn delete'>Delete</button>");            
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+        
 
-// Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
-dataRef.ref().on("child_added", function (childSnapshot)
-{
-    // Log everything that's coming out of snapshot
-    console.log(childSnapshot.val().name);
+    $(document).on("click", ".delete", function(){
+        var item = $(this).parent().attr("data-key");
+        dataRef.ref(item).remove()
+        $(this).parent().remove();
+    })
 
-    // full list of items to the well
-    $("#full-member-list").append("<div class='well'><span class='member-name'> " + childSnapshot.val().name);
-
-    // Handle the errors
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-});
-
-dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
-    // Change the HTML to reflect
-    $("#name-display").text(snapshot.val().name);
-
-});
+    
 
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
@@ -433,73 +437,49 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 //     });
 // }
 //      ebayInfoCategory("20914", 3);  
-
-
-// //single api call
-//     function ebayInfoSingle(ItemId){
-
-//    var queryUrl = "http://open.api.ebay.com/shopping?"
-//    queryUrl += "callname=GetSingleItem";
-//    queryUrl += "&responseencoding=JSON";
-//    queryUrl += "&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
-//    queryUrl += "&siteid=0";
-//    queryUrl += "&version=967";
-//    queryUrl += "&ItemID=" + ItemId;
-//    queryUrl += "&IncludeSelector=Description,ItemSpecifics";
-//    queryUrl += "&callbackname = ebayInfoSingle"
-   
-//    //var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=332669346050&IncludeSelector=Description,ItemSpecifics"
-
-
-//    $.ajax({
-//     url: queryUrl,
-//     method: "GET",
-//     dataType: "jsonp",
-//     callback: "parseResponse"
-// }).done(function (response) {
-
-//         console.log(JSON.parse(response));  
-
-//         var results = response.Item
-         
-//         console.log(results);
-                  
-
-//         if (results.length == 0)
-//         {
-//             //Display a No Results Message
-//         }
-//         else
-//         {
-//             for (var i = 0, l=results.length; i < l; i++)
-//             {
-//                 var title = results[i].Title;
-//                 var description = results[i].Item.Description;
-//                 var price = results[i].ConvertedCurretPrice.Value;
-//                 var picture = results[i].GalleryURL;
-//                 var itemUrl = results[i].viewItemURLForNaturalSearch;
-//                 var itemId = results[i].itemID;
-//                 var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
-
-//                 console.log(results);
-//                 console.log(results[i].Title);
-//                 console.log(results[i].Item.Description);
-//                 console.log(results[i].ConvertedCurretPrice.Value);
-//                 console.log(results[i].GalleryURL)
-//                 console.log(results[i].viewItemURLForNaturalSearch);
-//                 console.log(results[i].itemID)
-//                 DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
-//             }
-//         }
-//     }).fail(function (err)
-//     {
-//         throw err;
-//     });
-// }
-//     ebayInfoSingle("332669346050");
     
 
+    function ebayInfoSingle(ItemId) {
+        var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+     
+     test = function (data) {
+       results = data.Item
 
+       console.log(results)
+
+       if (results.length == 0) {
+         console.log('nothing found')
+       }
+       else {
+         for (var i = 0, l = results.length; i < l; i++) {
+           var title = results[i].Title;
+           var description = results[i].Item.Description;
+           var price = results[i].ConvertedCurretPrice.Value;
+           var picture = results[i].GalleryURL;
+           var itemUrl = results[i].viewItemURLForNaturalSearch;
+           var itemId = results[i].itemID;
+           var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
+           console.log(results);
+           console.log(results[i].Title);
+           console.log(results[i].Item.Description);
+           console.log(results[i].ConvertedCurretPrice.Value);
+           console.log(results[i].GalleryURL)
+           console.log(results[i].viewItemURLForNaturalSearch);
+           console.log(results[i].itemID)
+           DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
+         }
+       }
+     }
+
+       $.ajax({
+         method: 'GET',
+         url: queryUrl,
+         dataType: 'jsonp'
+       }).then(function(){
+
+       })
+     }
+     ebayInfoSingle("332669346050");
 
 
     // Parse the response and build an HTML table to display search results
@@ -624,3 +604,4 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 // //UPC 
 // //Image Source 
 // //site link
+// console.clear()
