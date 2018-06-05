@@ -1,60 +1,59 @@
+// Initialize Firebase
 var config = {
-    // Initialize Firebase
     apiKey: "AIzaSyDb7poLCVH9HCHKCYwQIiGz-lCwda5rn8s",
     authDomain: "shopsmartfinal.firebaseapp.com",
     databaseURL: "https://shopsmartfinal.firebaseio.com",
     projectId: "shopsmartfinal",
     storageBucket: "shopsmartfinal.appspot.com",
     messagingSenderId: "673627430003"
-};
-firebase.initializeApp(config);
-
-var dataRef = firebase.database();
-
-// Initial Values
-var name = "";
-
-// Capture Button Click
-$("#add-user").on("click", function (event) {
-    event.preventDefault();
-
-    name = $("#name-input").val().trim();
-
-    // Code for the push
-    dataRef.ref().push({
-        name: name,
+  };
+  firebase.initializeApp(config);
+    
+    var dataRef = firebase.database();
+    
+    // Initial Values
+    var item = "";
+    
+    // Capture Button Click
+    $("#favourite-button").on("click", function(event) {
+      event.preventDefault();
+      
+      item = $("#searchInput").val().trim();
+ 
+      console.log(item)
+      // Code for the push
+      dataRef.ref().push({
+        item: item,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
+      });
     });
-});
+    
+    // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+    dataRef.ref().on("child_added", function(childSnapshot) {
+      
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().item);
+  
+      
+      // full list of items to the well
+      $(".card-body").append("<div class='well' data-key='"+childSnapshot.key+"'><span> " + childSnapshot.val().item +"</span><button class='btn delete'>Delete</button>");            
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+        
 
-// Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
-dataRef.ref().on("child_added", function (childSnapshot)
-{
-    // Log everything that's coming out of snapshot
-    console.log(childSnapshot.val().name);
+    $(document).on("click", ".delete", function(){
+        var item = $(this).parent().attr("data-key");
+        dataRef.ref(item).remove()
+        $(this).parent().remove();
+    })
 
-    // full list of items to the well
-    $("#full-member-list").append("<div class='well'><span class='member-name'> " + childSnapshot.val().name);
-
-    // Handle the errors
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-});
-
-dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
-    // Change the HTML to reflect
-    $("#name-display").text(snapshot.val().name);
-
-});
+    
 
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-
-=======
-//InitializePage();
->>>>>>> 597b3c3a6b53cffc79bc7d80c5ce5f707366b6c0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -568,3 +567,4 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 // //UPC 
 // //Image Source 
 // //site link
+// console.clear()
