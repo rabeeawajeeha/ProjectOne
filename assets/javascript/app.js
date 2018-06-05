@@ -397,73 +397,49 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 //     });
 // }
 //      ebayInfoCategory("20914", 3);  
-
-
-// //single api call
-//     function ebayInfoSingle(ItemId){
-
-//    var queryUrl = "http://open.api.ebay.com/shopping?"
-//    queryUrl += "callname=GetSingleItem";
-//    queryUrl += "&responseencoding=JSON";
-//    queryUrl += "&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
-//    queryUrl += "&siteid=0";
-//    queryUrl += "&version=967";
-//    queryUrl += "&ItemID=" + ItemId;
-//    queryUrl += "&IncludeSelector=Description,ItemSpecifics";
-//    queryUrl += "&callbackname = ebayInfoSingle"
-   
-//    //var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=332669346050&IncludeSelector=Description,ItemSpecifics"
-
-
-//    $.ajax({
-//     url: queryUrl,
-//     method: "GET",
-//     dataType: "jsonp",
-//     callback: "parseResponse"
-// }).done(function (response) {
-
-//         console.log(JSON.parse(response));  
-
-//         var results = response.Item
-         
-//         console.log(results);
-                  
-
-//         if (results.length == 0)
-//         {
-//             //Display a No Results Message
-//         }
-//         else
-//         {
-//             for (var i = 0, l=results.length; i < l; i++)
-//             {
-//                 var title = results[i].Title;
-//                 var description = results[i].Item.Description;
-//                 var price = results[i].ConvertedCurretPrice.Value;
-//                 var picture = results[i].GalleryURL;
-//                 var itemUrl = results[i].viewItemURLForNaturalSearch;
-//                 var itemId = results[i].itemID;
-//                 var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
-
-//                 console.log(results);
-//                 console.log(results[i].Title);
-//                 console.log(results[i].Item.Description);
-//                 console.log(results[i].ConvertedCurretPrice.Value);
-//                 console.log(results[i].GalleryURL)
-//                 console.log(results[i].viewItemURLForNaturalSearch);
-//                 console.log(results[i].itemID)
-//                 DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
-//             }
-//         }
-//     }).fail(function (err)
-//     {
-//         throw err;
-//     });
-// }
-//     ebayInfoSingle("332669346050");
     
 
+    function ebayInfoSingle(ItemId) {
+        var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+     
+     test = function (data) {
+       results = data.Item
 
+       console.log(results)
+
+       if (results.length == 0) {
+         console.log('nothing found')
+       }
+       else {
+         for (var i = 0, l = results.length; i < l; i++) {
+           var title = results[i].Title;
+           var description = results[i].Item.Description;
+           var price = results[i].ConvertedCurretPrice.Value;
+           var picture = results[i].GalleryURL;
+           var itemUrl = results[i].viewItemURLForNaturalSearch;
+           var itemId = results[i].itemID;
+           var itemSpecs = results[i].ItemSpecifics.NameValueList[i];
+           console.log(results);
+           console.log(results[i].Title);
+           console.log(results[i].Item.Description);
+           console.log(results[i].ConvertedCurretPrice.Value);
+           console.log(results[i].GalleryURL)
+           console.log(results[i].viewItemURLForNaturalSearch);
+           console.log(results[i].itemID)
+           DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
+         }
+       }
+     }
+
+       $.ajax({
+         method: 'GET',
+         url: queryUrl,
+         dataType: 'jsonp'
+       }).then(function(){
+
+       })
+     }
+     ebayInfoSingle("332669346050");
 
 
     // Parse the response and build an HTML table to display search results
