@@ -105,7 +105,7 @@ LastModified: 06/02/2018
 var GetWalmartProduct = function (queryParams,jqueryRef)
 {
     console.log("GETWLAMARTPROD" + JSON.stringify(queryParams))
-    var url = "http://api.walmartlabs.com/v1/search";
+    var url = "https://api.walmartlabs.com/v1/search";
     url += '?' + $.param(queryParams);
     console.log(url)
     $.ajax({
