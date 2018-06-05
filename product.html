@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/css/skeleton.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
@@ -20,27 +20,46 @@
 <body>
         <main id="page-content" class="wrap container">
 
-              <!-- logo -->
-  <div class="container">
-        <div class="row">
-            <div class="sslogo">
-                <img class="sslogo" src="assets/images/SSlogo.png">
+ <!-- logo -->
+ <div class="container">
+    <div class="row">
+        <div class="sslogo">
+            <img class="sslogo" src="assets/images/SSlogo.png">
+        </div>
+    </div>
+    </div>  
+  </div>
+
+  <!-- Search -->
+  <div class="container-fluid"> 
+    <form>
+        <div class="search-box">
+            <div class="eight columns">
+          <input class="u-full-width" type="search" placeholder="Search hottest products here" id="searchInput">
+        </div>
+        <input class="button" type="submit" value="Submit">
+       <button type="button" id="favourite-button" class="button"> FAVOURITE </button>
+
+      </form>
+  </div>
+
+
+     <!-- //Replace the images with the client logos of your customers -->
+     <div class="row">
+            <div class="container" id="logoslider">
+              <section class="customer-logos slider">
+                <div class="slide"><img src="assets/images/logo-01.png"></div>
+                <div class="slide"><img src="assets/images/logo-02.png"></div>
+                <div class="slide"><img src="assets/images/logo-03.png"></div>
+                <div class="slide"><img src="assets/images/logo-04.png"></div>
+                <div class="slide"><img src="assets/images/logo-05.png"></div>
+                <div class="slide"><img src="assets/images/logo-06.png"></div>
+                <div class="slide"><img src="assets/images/logo-07.png"></div>
+                <div class="slide"><img src="assets/images/logo-08.png"></div>
+              </section>
             </div>
+          </div>
         </div>
-        </div>  
-      </div>
-
-      <!-- Search -->
-      <div class="container-fluid"> 
-          <form>
-              <div class="search-box">
-                  <div class="eight columns">
-                <input class="u-full-width" type="search" placeholder="Search hottest products here" id="searchInput">
-              </div>
-              <input class="button-primary" type="submit" value="Submit">
-            </form>
-        </div>
-
 
              <!-- Single Product -->
 
@@ -67,48 +86,17 @@
                         <div class="product_description">
                             <div class="product_category">Laptops</div>
                             <div class="product_name">MacBook Air 13</div>
-                            <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                             <div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
-                            <div class="order_info d-flex flex-row">
-                                <form action="#">
-                                    <div class="clearfix" style="z-index: 1000;">
-    
-                                        <!-- Product Quantity -->
-                                        <div class="product_quantity clearfix">
-                                            <span>Quantity: </span>
-                                            <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-                                            <div class="quantity_buttons">
-                                                <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-                                                <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-                                            </div>
-                                        </div>
-    
-                                        <!-- Product Color -->
-                                        <ul class="product_color">
-                                            <li>
-                                                <span>Color: </span>
-                                                <div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
-                                                <div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
-    
-                                                <ul class="color_list">
-                                                    <li><div class="color_mark" style="background: #999999;"></div></li>
-                                                    <li><div class="color_mark" style="background: #b19c83;"></div></li>
-                                                    <li><div class="color_mark" style="background: #000000;"></div></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-    
-                                    </div>
-    
                                     <div class="product_price">$2000</div>
                                     <div class="button_container">
-                                        <button type="button" class="button cart_button">Add to Cart</button>
+                                        <button type="button" class="button">Add to Cart</button>
                                         <div class="product_fav"><i class="fas fa-heart"></i></div>
                                     </div>
-                                    
-                                </form>
-                            </div>
-                        </div>
                     </div>
     
                 </div>
@@ -116,6 +104,11 @@
         </div>
     
         </main>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="assets/javascript/app.js"></script>
+<script src="assets/js/carousal.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
 
 </body>
 </html>

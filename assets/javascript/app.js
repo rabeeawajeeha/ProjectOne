@@ -50,7 +50,11 @@ dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functio
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
+<<<<<<< HEAD
+
+=======
 //InitializePage();
+>>>>>>> 597b3c3a6b53cffc79bc7d80c5ce5f707366b6c0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -282,7 +286,7 @@ var InitializePage = function ()
     SendWalmartParams("", 3,"",$(""))//Add CategoryId 
     //Add Ebay Initial call for Specified Category
 }
-
+InitializePage();
 
 
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
