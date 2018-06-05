@@ -22,6 +22,24 @@ $(document).ready(function() {
 //     }
 // });
 
+///////////////////////////////////////////NADIAH WORKING SECTION////////////////////////////////////////////////////
+
+$.ajax({
+    url:'https://api.cloudsight.ai/v1/images'
+    method:'POST'
+    headers:{
+        'Authorization': 'CloudSight -wslbEXDJIZNwAWW3BOP0g',
+        'Content-Type': 'application/json'
+    },
+    dataType:'json',
+    data:JSON.stingify({'remote_image_url': 
+    'https://images.kogan.com/image/fetch/s--zV49J_Yh--/b_white,c_pad,f_auto,h_630,q_auto:good,w_1200/https://assets.kogan.com/files/product/iPhone-5S/apple-iphone-5s-gold-front-hires.jpg',
+  'locale': 'en_US'});
+}).then(function(response){
+    console.log(response);
+    //TODO::DO stuff
+});
+
 // Parse the response and build an HTML table to display search results
 function _cb_findItemsByKeywords(root) {
     var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
