@@ -105,7 +105,7 @@ LastModified: 06/02/2018
 var GetWalmartProduct = function (queryParams,jqueryRef)
 {
     console.log("GETWLAMARTPROD" + JSON.stringify(queryParams))
-    var url = "http://api.walmartlabs.com/v1/search";
+    var url = "https://api.walmartlabs.com/v1/search";
     url += '?' + $.param(queryParams);
     console.log(url)
     $.ajax({
@@ -329,7 +329,7 @@ var row4 = $("<div class='row products4'>");
 
 function ebayInfoKeyword(keyword,limit, jqueryRef) {
 
-var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
+var queryUrl = "https://svcs.ebay.com/services/search/FindingService/v1";
 queryUrl += "?OPERATION-NAME=findItemsByKeywords";
 queryUrl += "&SERVICE-VERSION=1.0.0";
 queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
@@ -440,7 +440,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
     
 
     function ebayInfoSingle(ItemId) {
-        var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+        var queryUrl = "https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
      
      test = function (data) {
        results = data.Item
