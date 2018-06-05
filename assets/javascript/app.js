@@ -152,9 +152,6 @@ var GetWalmartProduct = function (queryParams,jqueryRef)
     });
 }
 
-
-
-
 //If we want to do category search we need to defione the categories
 //And then I can use the API to designate category id with in 
 // the search criteria
