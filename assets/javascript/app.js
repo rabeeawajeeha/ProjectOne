@@ -1,56 +1,68 @@
+// Initialize Firebase
 var config = {
-    // Initialize Firebase
     apiKey: "AIzaSyDb7poLCVH9HCHKCYwQIiGz-lCwda5rn8s",
     authDomain: "shopsmartfinal.firebaseapp.com",
     databaseURL: "https://shopsmartfinal.firebaseio.com",
     projectId: "shopsmartfinal",
     storageBucket: "shopsmartfinal.appspot.com",
     messagingSenderId: "673627430003"
-};
-firebase.initializeApp(config);
-
-var dataRef = firebase.database();
-
-// Initial Values
-var name = "";
-
-// Capture Button Click
-$("#add-user").on("click", function (event) {
-    event.preventDefault();
-
-    name = $("#name-input").val().trim();
-
-    // Code for the push
-    dataRef.ref().push({
-        name: name,
+  };
+  firebase.initializeApp(config);
+    
+    var dataRef = firebase.database();
+    
+    // Initial Values
+    var item = "";
+    
+    // Capture Button Click
+    $("#favourite-button").on("click", function(event) {
+      event.preventDefault();
+      
+      item = $("#searchInput").val().trim();
+ 
+      console.log(item)
+      // Code for the push
+      dataRef.ref().push({
+        item: item,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
+      });
     });
-});
+    
+    // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+    dataRef.ref().on("child_added", function(childSnapshot) {
+      
+      // Log everything that's coming out of snapshot
+      console.log(childSnapshot.val().item);
+  
+      
+      // full list of items to the well
+      $(".card-body").append("<div class='well' data-key='"+childSnapshot.key+"'><span> " + childSnapshot.val().item +"</span><button class='btn delete'>Delete</button>");            
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+        
 
-// Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
-dataRef.ref().on("child_added", function (childSnapshot)
-{
-    // Log everything that's coming out of snapshot
-    console.log(childSnapshot.val().name);
-
-    // full list of items to the well
-    $("#full-member-list").append("<div class='well'><span class='member-name'> " + childSnapshot.val().name);
-
-    // Handle the errors
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
-});
-
-dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
-    // Change the HTML to reflect
-    $("#name-display").text(snapshot.val().name);
-
-});
+    $(document).on("click", ".delete", function(){
+        var item = $(this).parent().attr("data-key");
+        dataRef.ref(item).remove()
+        $(this).parent().remove();
+    })
+    $(document).on("click", ".well", function(){
+        var item = $(this).children("span").text().trim();
+        newpage();
+        
+        ProductSearch(item);
+    })
+    
 
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 //InitializePage();
+=======
+>>>>>>> 757cc850d6cdb06a183dd180408733c2f0922ad0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -102,7 +114,7 @@ LastModified: 06/02/2018
 var GetWalmartProduct = function (queryParams,jqueryRef)
 {
     console.log("GETWLAMARTPROD" + JSON.stringify(queryParams))
-    var url = "http://api.walmartlabs.com/v1/search";
+    var url = "https://api.walmartlabs.com/v1/search";
     url += '?' + $.param(queryParams);
     console.log(url)
     $.ajax({
@@ -147,23 +159,6 @@ salePrice
 shortDescription
 customerRating
 
-
-brandName
-name
-color
-customerRating
-customerRatingImage
-itemId
-modelNumber
-largeImage - mediumImage - thumbnailImage
-longDescription - shortDescription
-productUrl
-msrp
-salePrice
-stock
-upc
-categoryNode
-categoryPath
 */
 
 /*
@@ -179,6 +174,9 @@ LastModified: 06/02/2018
  */
 var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
 {
+
+    console.log("DRAW: " + jqueryRef)
+    
     var divCol = $("<div class='col-md-3 product-grid'>");
     var divImage = $("<div class='image'>");
 
@@ -224,7 +222,7 @@ var DrawProductCard = function (name, price, upc, imageSrc, siteLink, jqueryRef)
     divCol.append(aSiteLink);
 
     //Category class or ID needed to determine where to put Product card
-    // jqueryRef.append(divCol);
+    jqueryRef.append(divCol);
 
 }
 
@@ -239,8 +237,12 @@ $("#submit").on("click", function (event)
     event.preventDefault();
 
     var searchTerm = $("#searchInput").val().trim();
+
     if (searchTerm)
     {
+        //location.href = "search.html"
+        newpage();
+        //$("#searchInput").val(searchTerm);
         ProductSearch(searchTerm);
     }
 });
@@ -256,9 +258,13 @@ var ProductSearch = function (searchTerm)
 {
     if (searchTerm)
     {
-        jqueryRef = $("");//Somewhere on the SearchResultsPage
+        console.log("Search Product")
+        jqueryRef = $(".products");//Somewhere on the SearchResultsPage
 
-        SendWalmartParams(searchTerm, jqueryRef); //Send limit if we want to limit # of search results
+        SendWalmartParams(searchTerm, 25,"", $(".products1")); 
+       
+        //Send limit if we want to limit # of search results
+        //ebayInfoKeyword(searchTerm,4, jqueryRef)
         //PAGE Navigtion to search results 
         //Call functions of ajax calls for keyword searchs
         //Pass the jquery of where to populate the products
@@ -273,23 +279,70 @@ LastModified: 06/02/2018
  */
 var InitializePage = function ()
 {
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("Laptops", 4,3944,$(".Laptops"))//Add CategoryId 
+  //  ebayInfoKeyword("laptops", 2, $(".Laptops"))
     //Add Ebay Initial call for Specified Category
 
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("Smartphones", 4,"",$(".smartphones"))//Add CategoryId 
+   // ebayInfoKeyword("Smartphone", 2,$(".smartphones"))
     //Add Ebay Initial call for Specified Category
 
-    SendWalmartParams("", 3,"",$(""))//Add CategoryId 
+    SendWalmartParams("cameras", 4,"",$(".cameras"))//Add CategoryId 
+    //ebayInfoKeyword("cameras", 2,$(".cameras"))
     //Add Ebay Initial call for Specified Category
 }
 InitializePage();
 
 
+var newpage = function()
+{$(".Products1").empty();
+var row1 = $("<div class='row products1'>");
+var row2 = $("<div class='row products2'>");
+var row3 = $("<div class='row products3'>");
+var row4 = $("<div class='row products4'>");
+
+  
+
+
+    $(".Products1").append(row1);
+
+    
+   
+    $(".Products1").append(row2);
+
+  
+    $(".Products1").append(row3);
+
+    $(".Products1").append(row4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 function ebayInfoKeyword(keyword,limit, jQuery) {
+=======
+function ebayInfoKeyword(keyword,limit, jqueryRef) {
+>>>>>>> 757cc850d6cdb06a183dd180408733c2f0922ad0
 
-var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
+var queryUrl = "https://svcs.ebay.com/services/search/FindingService/v1";
 queryUrl += "?OPERATION-NAME=findItemsByKeywords";
 queryUrl += "&SERVICE-VERSION=1.0.0";
 queryUrl += "&SECURITY-APPNAME=";
@@ -331,7 +384,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
                     console.log(results[i].galleryURL[0]);
                     console.log(results[i].viewItemURL[0]);
                     console.log(results[i].itemId[0])
-                    DrawProductCard(title, price, picture, itemUrl, itemId);
+                    DrawProductCard(title, price, picture, itemUrl, itemId, jqueryRef);
                 }
             }
         }).fail(function (err)
@@ -339,7 +392,11 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
             throw err;
         });
     }       
+<<<<<<< HEAD
     ebayInfoKeyword("Laptops", 2 );
+=======
+   
+>>>>>>> 757cc850d6cdb06a183dd180408733c2f0922ad0
 
 
 // category api call
@@ -400,7 +457,11 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
     
 
     function ebayInfoSingle(ItemId) {
+<<<<<<< HEAD
         var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-25&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+=======
+        var queryUrl = "https://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+>>>>>>> 757cc850d6cdb06a183dd180408733c2f0922ad0
      
      test = function (data) {
        results = data.Item
@@ -562,3 +623,4 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 // //UPC 
 // //Image Source 
 // //site link
+// console.clear()
