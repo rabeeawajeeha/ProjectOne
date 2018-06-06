@@ -50,11 +50,7 @@ dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", functio
 
 ///////////////////////////////////////////AARON WORKING SECTION////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-
-=======
 //InitializePage();
->>>>>>> 597b3c3a6b53cffc79bc7d80c5ce5f707366b6c0
 /*
 Description: This function Creates a JSON Object of parameter to send to the GetWalmartProduct function to perform an ajax call
 Parameters: searchTerm - string for ajax call to search Keyword
@@ -291,12 +287,12 @@ InitializePage();
 
 ///////////////////////////////////////////AARON WORKING SECTION END////////////////////////////////////////////////////
 
-function ebayInfoKeyword(keyword,limit) {
+function ebayInfoKeyword(keyword,limit, jQuery) {
 
 var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1";
 queryUrl += "?OPERATION-NAME=findItemsByKeywords";
 queryUrl += "&SERVICE-VERSION=1.0.0";
-queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+queryUrl += "&SECURITY-APPNAME=";
 queryUrl += "&GLOBAL-ID=EBAY-ENCA";
 queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
 //url += "&callback=_cb_findItemsByKeywords";
@@ -343,7 +339,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
             throw err;
         });
     }       
-    ebayInfoKeyword("sony", 3 );
+    ebayInfoKeyword("Laptops", 2 );
 
 
 // category api call
@@ -352,7 +348,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
 //    var queryUrl = "http://svcs.ebay.com/services/search/FindingService/v1?"
 //    queryUrl += "&OPERATION-NAME=findItemsByCategory";
 //    queryUrl += "&SERVICE-VERSION=1.0.0";
-//    queryUrl += "&SECURITY-APPNAME=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525";
+//    queryUrl += "&SECURITY-APPNAME=";
 //    queryUrl += "&RESPONSE-DATA-FORMAT=JSON";
 //    queryUrl += "&REST-PAYLOAD";
 //    queryUrl += "&categoryName= " + categoryName;
@@ -404,7 +400,7 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
     
 
     function ebayInfoSingle(ItemId) {
-        var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-ShopSmar-PRD-e2ccf98b2-f4cf0525&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
+        var queryUrl = "http://open.api.ebay.com/shopping?callname=GetSingleItem&responseencoding=JSON&appid=OliverPa-25&siteid=0&version=967&ItemID=" + ItemId + "&IncludeSelector=Description,ItemSpecifics&callbackname=test"
      
      test = function (data) {
        results = data.Item
@@ -427,9 +423,9 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
            console.log(results[i].Title);
            console.log(results[i].Item.Description);
            console.log(results[i].ConvertedCurretPrice.Value);
-           console.log(results[i].GalleryURL)
+           console.log(results[i].GalleryURL);
            console.log(results[i].viewItemURLForNaturalSearch);
-           console.log(results[i].itemID)
+           console.log(results[i].itemID);
            DrawProductCard(title, description, price, picture, itemUrl, itemId, itemSpecs);
          }
        }
@@ -519,8 +515,6 @@ queryUrl += "&paginationInput.entriesPerPage=" + limit;
     // buildURLArray(filterarray);
 
     // // Construct the request
-
-
 
 
     // var product = "http://svcs.ebay.com/services/search/FindingService/v1?";
